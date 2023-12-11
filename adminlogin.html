@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CARENT</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">CARENT</a>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sewa.html">Sewa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="syarat.html">Syarat & Ketentuan</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Form Login -->
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <form onsubmit="return validateLogin()">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" placeholder="Masukkan username Anda" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Masukkan password Anda" required>
+                    </div>
+                    <button type="submit" class="btn btn-outline-success">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>PT. Carent Indonesia</p>
+        <p>Jl. Surya Kencana No. 1 Pamulang, Tangerang Selatan, Banten</p>
+        <p>021 - 7770123</p>
+        <p>carentindonesia@gmail.inc</p>
+        <p>Copyright @2023 Universitas Pamulang</p>
+    </footer>
+
+    <!-- Bootstrap JavaScript and dependencies (optional) -->
+    <!-- Popper.js first, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function validateLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Memeriksa nilai username dan password
+            if (username === 'admin' && password === 'admin123') {
+                // Jika nilai sesuai, arahkan ke halaman indexadmin.html
+                window.location.href = 'indexadmin.html';
+                return false; // Menahan form dari submit default
+            } else {
+                // Jika tidak sesuai, tampilkan pesan kesalahan dan blokir akses
+                alert('Username atau password salah!');
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>

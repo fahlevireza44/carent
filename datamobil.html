@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="adm-body">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="indexadmin.html">Index</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="datamobil.html">Database Mobil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="datauser.html">Database User</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="laporansewa.html">Laporan Sewa</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="keuangan.html">Laporan Keuangan</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Page content -->
+    <div class="container mt-4">
+        <h2>Data Mobil</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Mobil</th>
+                    <th scope="col">Harga</th>
+                </tr>
+            </thead>
+            <tbody id="dataMobil">
+                <!-- Baris data akan ditambahkan oleh JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <!-- Bootstrap JavaScript and dependencies (optional) -->
+    <!-- Popper.js first, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="datamobil.js"></script>
+    <script>
+        // Mendapatkan elemen tabel
+        const table = document.getElementById('dataMobil');
+
+        // Mengisi tabel dengan data dari datamobil.js
+        mobilData.forEach(mobil => {
+            const row = table.insertRow();
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            cell1.textContent = mobil.mobil;
+            cell2.textContent = mobil.harga;
+        });
+    </script>
+</body>
+
+</html>

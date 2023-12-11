@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="adm-body">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="indexadmin.html">Index</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="datamobil.html">Database Mobil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="datauser.html">Database User</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="laporansewa.html">Laporan Sewa</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="keuangan.html">Laporan Keuangan</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Page content -->
+    <div class="container">
+        <h2>Laporan Sewa</h2>
+        <div class="container mt-3">
+            <label for="laporanType">Pilih Jenis Laporan:</label>
+            <select id="dateOption">
+                <option value="1">Semua</option>
+                <option value="2">Mingguan</option>
+                <option value="3">Bulanan</option>
+            </select>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nomor Referensi</th>
+                    <th>Email</th>
+                    <th>Pilihan Mobil</th>
+                    <th>durasi Sewa(Hari)</th>
+                    <th>harga Sewa</th>
+                    <th>Awal Sewa</th>
+                    <th>Akhir Sewa</th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody id="sewaTableBody">
+                <!-- Data laporan sewa akan ditampilkan di sini -->
+                <!-- Isi tabel akan diisi melalui JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    <!-- Bootstrap JavaScript and dependencies (optional) -->
+    <!-- Popper.js first, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script untuk menampilkan laporan sewa -->
+    <script>
+        // Ambil data dari localStorage laporansewa
+        var laporanSewa = JSON.parse(localStorage.getItem('laporanSewa')) || [];
+
+        // Ambil elemen tbody untuk menampilkan data
+        var tbody = document.getElementById('sewaTableBody');
+
+        // Fungsi untuk memperbarui tampilan tabel
+        function refreshTable() {
+            tbody.innerHTML = ''; // Kosongkan isi tbody
+
+            // Periksa apakah ada data laporan sewa
+            if (laporanSewa.length > 0) {
+                // Iterasi melalui setiap data laporan sewa dan tambahkan ke tabel
+                laporanSewa.forEach(function(data, index) {
+                    // Buat baris baru untuk setiap data laporan sewa
+                    var row = document.createElement('tr');
+
+
+                    var nomorReferensiCell = document.createElement('td');
+                    var nomorReferensi = generateNomorReferensi(data.tanggalSewa, index + 1);
+                    nomorReferensiCell.textContent = nomorReferensi;
+                    row.appendChild(nomorReferensiCell);
+
+
+                    var emailCell = document.createElement('td');
+                    emailCell.textContent = data.emailPengguna; // Mengambil email dari data laporan sewa
+                    row.appendChild(emailCell);
+
+
+
+
+                    var pilihanMobilCell = document.createElement('td');
+                    pilihanMobilCell.textContent = data.pilihMobil || 'Data tidak tersedia';
+                    row.appendChild(pilihanMobilCell);
+
+                    var durasiSewaCell = document.createElement('td');
+                    durasiSewaCell.textContent = data.durasiSewa || 'Data tidak tersedia';
+                    row.appendChild(durasiSewaCell);
+
+                    var hargaSewaCell = document.createElement('td');
+                    hargaSewaCell.textContent = data.hargaSewa || 'Data tidak tersedia';
+                    row.appendChild(hargaSewaCell);
+
+
+                    var tanggalSewaCell = document.createElement('td');
+                    tanggalSewaCell.textContent = data.tanggalSewa || 'Data tidak tersedia';
+                    row.appendChild(tanggalSewaCell);
+
+                    // Hitung dan tambahkan kolom untuk menampilkan tanggal akhir sewa
+                    var tanggalAwalSewa = new Date(data.tanggalSewa); // Konversi string tanggal sewa ke objek Date
+                    var durasiHari = parseInt(data.durasiSewa); // Ambil durasi sewa dan konversi ke integer
+                    var tanggalAkhirSewa = new Date(tanggalAwalSewa.getTime() + durasiHari * 24 * 60 * 60 * 1000); // Hitung tanggal akhir sewa
+
+                    var tanggalAkhirSewaCell = document.createElement('td');
+                    tanggalAkhirSewaCell.textContent = tanggalAkhirSewa.toDateString() || 'Data tidak tersedia';
+                    row.appendChild(tanggalAkhirSewaCell);
+
+                    // Tambahkan kolom untuk tombol hapus dan fungsi hapus
+                    var actionCell = document.createElement('td');
+                    var deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Hapus';
+                    deleteButton.onclick = function() {
+                        // Menghapus baris dari tabel
+                        tbody.removeChild(row);
+
+                        // Menghapus data dari array laporanSewa
+                        laporanSewa.splice(index, 1);
+
+                        // Simpan kembali data ke localStorage
+                        localStorage.setItem('laporanSewa', JSON.stringify(laporanSewa));
+
+                        // Panggil kembali fungsi refreshTable untuk memperbarui tampilan
+                        refreshTable();
+                    };
+                    actionCell.appendChild(deleteButton);
+                    row.appendChild(actionCell);
+
+                    tbody.appendChild(row);
+                });
+            } else {
+                // Jika tidak ada data laporan sewa, tampilkan pesan kosong
+                var emptyRow = document.createElement('tr');
+                var emptyCell = document.createElement('td');
+                emptyCell.setAttribute('colspan', '6'); // Sesuaikan jumlah kolom tabel
+                emptyCell.textContent = 'Tidak ada data laporan sewa.';
+                emptyRow.appendChild(emptyCell);
+                tbody.appendChild(emptyRow);
+            }
+        }
+
+        // Memanggil fungsi refreshTable untuk pertama kali
+        refreshTable();
+
+        // Fungsi untuk menghasilkan nomor referensi dengan format tanggal + 3 digit nomor urut
+        function generateNomorReferensi(tanggal, index) {
+            var formattedDate = formatDate(new Date(tanggal)); // Menggunakan fungsi formatDate untuk mendapatkan tanggal dalam format DDMMYYYY
+            var paddedIndex = padNumber(index, 3); // Padding nomor urut menjadi 3 digit
+            return formattedDate + paddedIndex;
+        }
+
+        // Fungsi untuk memformat tanggal ke dalam format DDMMYYYY
+        function formatDate(date) {
+            var day = padNumber(date.getDate(), 2);
+            var month = padNumber(date.getMonth() + 1, 2);
+            var year = date.getFullYear().toString().substr(-2); // Ambil dua digit terakhir dari tahun
+            return day + month + year;
+        }
+
+        // Fungsi untuk menambahkan leading zero pada angka jika dibutuhkan
+        function padNumber(number, length) {
+            return String(number).padStart(length, '0');
+        }
+    </script>
+
+    // Fungsi sort untuk laporan mingguan dan bulanan
+    <script>
+        // Ambil elemen select untuk jenis laporan
+        var dateOption = document.getElementById('dateOption');
+
+        // Tambahkan event listener untuk perubahan pada select
+        dateOption.addEventListener('change', function() {
+            sortTableByDate();
+        });
+
+        // Fungsi untuk mengurutkan tabel berdasarkan tanggal sewa
+        function sortTableByDate() {
+            var optionValue = parseInt(dateOption.value);
+
+            if (optionValue !== 1) {
+                var currentDate = new Date(); // Ambil tanggal hari ini sebagai referensi
+                var referenceDate = new Date();
+
+                if (optionValue === 2) {
+                    // Filter data untuk Mingguan (7 hari sebelum hari ini)
+                    referenceDate.setDate(currentDate.getDate() - 7);
+                } else if (optionValue === 3) {
+                    // Filter data untuk Bulanan (30 hari sebelum hari ini)
+                    referenceDate.setDate(currentDate.getDate() - 30);
+                }
+
+                laporanSewa.forEach(function(data, index) {
+                    var dataDate = new Date(data.tanggalSewa);
+                    var row = tbody.childNodes[index];
+
+                    if (dataDate >= referenceDate && dataDate <= currentDate) {
+                        row.style.display = ''; // Tampilkan baris jika dalam rentang tanggal yang dipilih
+                    } else {
+                        row.style.display = 'none'; // Sembunyikan jika di luar rentang tanggal yang dipilih
+                    }
+                });
+            } else {
+                // Jika opsi "Semua" dipilih, tampilkan semua baris
+                laporanSewa.forEach(function(data, index) {
+                    var row = tbody.childNodes[index];
+                    row.style.display = '';
+                });
+            }
+        }
+    </script>
+
+</body>
+
+</html>

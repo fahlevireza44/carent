@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CARENT</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">CARENT</a>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sewa.html">Sewa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="syarat.html">Syarat & Ketentuan</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-sewa mt-4">
+        <h2>Form Sewa Mobil</h2>
+        <form onsubmit="return validateSewa()">
+            <div class="mb-3">
+                <label for="pilihMobil" class="form-label">Pilih Mobil</label>
+                <select class="form-select" id="pilihMobil">
+                    <option selected>Pilih mobil...</option>
+                    <!-- Option akan diisi dari datamobil.js -->
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="durasiSewa" class="form-label">Durasi Sewa (1-56)</label>
+                <input type="number" class="form-control" id="durasiSewa" name="durasiSewa" min="1" max="56" required>
+            </div>
+            <div class="mb-3">
+                <label for="hargaSewa" class="form-label">Harga Sewa</label>
+                <input type="text" class="form-control" id="hargaSewa" name="hargaSewa" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="tanggalSewa" class="form-label">Tanggal Sewa</label>
+                <input type="date" class="form-control" id="tanggalSewa" name="tanggalSewa" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+
+    </div>
+    <!-- Footer -->
+    <footer>
+        <p>PT. Carent Indonesia</p>
+        <p>Jl. Surya Kencana No. 1 Pamulang, Tangerang Selatan, Banten</p>
+        <p>021 - 7770123</p>
+        <p>carentindonesia@gmail.inc</p>
+        <p>Copyright @2023 Universitas Pamulang</p>
+    </footer>
+
+    <!-- Bootstrap JavaScript and dependencies (optional) -->
+    <!-- Popper.js first, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="datamobil.js"></script>
+    <script>
+        const dropdown = document.getElementById('pilihMobil');
+
+        mobilData.forEach(mobil => {
+            const option = document.createElement('option');
+            option.text = `${mobil.mobil} - ${mobil.harga}`;
+            dropdown.appendChild(option);
+        });
+    </script>
+    <script>
+        function hitungHarga() {
+            const pilihMobil = document.getElementById('pilihMobil');
+            const durasiSewa = document.getElementById('durasiSewa');
+            const hargaSewa = document.getElementById('hargaSewa');
+
+            // Mendapatkan harga mobil terpilih
+            const selectedMobilIndex = pilihMobil.selectedIndex - 1; // -1 karena option pertama adalah placeholder
+            const selectedMobil = mobilData[selectedMobilIndex];
+            const hargaMobil = selectedMobil.harga;
+
+            // Mendapatkan durasi sewa
+            const durasi = durasiSewa.value;
+
+            // Melakukan perhitungan harga sewa
+            const totalHarga = hargaMobil * durasi;
+
+            // Mengisi kolom harga sewa dengan hasil perhitungan
+            hargaSewa.value = totalHarga;
+        }
+
+        // Menambahkan event listener untuk perhitungan otomatis saat input berubah
+        document.getElementById('pilihMobil').addEventListener('change', hitungHarga);
+        document.getElementById('durasiSewa').addEventListener('input', hitungHarga);
+    </script>
+
+    <script>
+        window.onload = function() {
+            var isLoggedIn = localStorage.getItem('isLoggedIn');
+
+            if (!isLoggedIn) {
+                window.location.href = 'index.html';
+            }
+        };
+    </script>
+    <script src="sewa.js"></script>
+
+    <script>
+        window.onload = function() {
+            var isLoggedIn = localStorage.getItem('isLoggedIn');
+
+            if (!isLoggedIn) {
+                window.location.href = 'login.html';
+            }
+        };
+    </script>
+</body>
+
+</html>

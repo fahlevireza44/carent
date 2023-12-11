@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritma dan Pemrograman 2</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">CARENT</a>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sewa.html">Sewa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="syarat.html">Syarat & Ketentuan</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Form Login -->
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <form>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Masukkan email Anda">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Masukkan password Anda">
+                    </div>
+                    <button class="btn btn-outline-success" onclick="return loginUser()">Login</button>
+                    <p class="mt-3">Belum punya akun? <a href="signup.html">Sign up</a></p> <br>
+                    <p>
+                        <a href="adminlogin.html">Admin</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>PT. Carent Indonesia</p>
+        <p>Jl. Surya Kencana No. 1 Pamulang, Tangerang Selatan, Banten</p>
+        <p>021 - 7770123</p>
+        <p>carentindonesia@gmail.inc</p>
+        <p>Copyright @2023 Universitas Pamulang</p>
+    </footer>
+
+    <!-- Bootstrap JavaScript and dependencies (optional) -->
+    <!-- Popper.js first, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function loginUser() {
+            var inputEmail = document.getElementById('email').value;
+            var inputPassword = document.getElementById('password').value;
+
+            if (!inputEmail || !inputPassword) {
+                alert('Email dan password harus diisi');
+                return false;
+            }
+
+            var users = JSON.parse(localStorage.getItem('users')) || [];
+
+            var userFound = users.find(function(user) {
+                return user.email === inputEmail && user.password === inputPassword;
+            });
+
+            if (userFound) {
+                // Jika login berhasil
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('loggedInUserEmail', userFound.email);
+
+                // Arahkan ke halaman sewa.html
+                window.location.href = 'sewa.html';
+            } else {
+                alert('Akses ditolak. Email atau password salah.');
+            }
+
+            return false;
+        }
+    </script>
+
+
+
+</body>
+
+</html>

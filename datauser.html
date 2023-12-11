@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="adm-body">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="indexadmin.html">Index</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="datamobil.html">Database Mobil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="datauser.html">Database User</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="laporansewa.html">Laporan Sewa</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="keuangan.html">Laporan Keuangan</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Page content -->
+    <div class="content">
+        <h2>Data Pengguna</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Nomor Identitas</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                <!-- Data pengguna akan ditampilkan di sini -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JavaScript and dependencies (optional) -->
+    <!-- Popper.js first, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <script>
+        // Ambil data dari localStorage
+        var users = JSON.parse(localStorage.getItem('users'));
+
+        // Ambil elemen tbody untuk menampilkan data
+        var tbody = document.getElementById('userTableBody');
+
+        // Periksa apakah ada data pengguna
+        if (users && users.length > 0) {
+            // Iterasi melalui setiap pengguna dan tambahkan ke tabel
+            users.forEach(function(user) {
+                // Buat baris baru untuk setiap pengguna
+                var row = document.createElement('tr');
+
+                // Tambahkan kolom dengan data pengguna
+                var namaCell = document.createElement('td');
+                namaCell.textContent = user.nama;
+                row.appendChild(namaCell);
+
+                var nomorIdentitasCell = document.createElement('td');
+                nomorIdentitasCell.textContent = user.nomorIdentitas;
+                row.appendChild(nomorIdentitasCell);
+
+                var emailCell = document.createElement('td');
+                emailCell.textContent = user.email;
+                row.appendChild(emailCell);
+
+                var passwordCell = document.createElement('td');
+                passwordCell.textContent = user.password;
+                row.appendChild(passwordCell);
+
+                // Tambahkan baris ke dalam tabel
+                tbody.appendChild(row);
+            });
+        } else {
+            // Jika tidak ada data pengguna, tampilkan pesan kosong
+            var emptyRow = document.createElement('tr');
+            var emptyCell = document.createElement('td');
+            emptyCell.setAttribute('colspan', '4');
+            emptyCell.textContent = 'Tidak ada data pengguna.';
+            emptyRow.appendChild(emptyCell);
+            tbody.appendChild(emptyRow);
+        }
+    </script>
+
+
+</body>
+
+</html>

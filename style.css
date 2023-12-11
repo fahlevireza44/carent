@@ -1,0 +1,158 @@
+/* Navbar Style */
+
+.navbar {
+    background-color: #000;
+}
+
+.navbar-nav .nav-link {
+    color: white;
+}
+
+.navbar-brand {
+    color: #fff;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #fff;
+}
+
+
+/* Login */
+
+
+/* Customize footer styles */
+
+footer {
+    background-color: #000;
+    /* warna hitam */
+    color: #fff;
+    /* warna putih */
+    padding: 20px 0;
+    text-align: center;
+}
+
+
+/* halaman admin */
+
+.adm-body {
+    font-family: Arial, sans-serif;
+    display: flex;
+}
+
+.sidebar {
+    background-color: #f8f9fa;
+    width: 250px;
+    padding: 20px;
+}
+
+.content {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+.sidebar ul li a:hover {
+    color: #007bff;
+}
+
+
+/* form sewa */
+
+
+/* CSS untuk membatasi lebar dropdown */
+
+.form-select {
+    width: 300px;
+}
+
+
+/* CSS untuk membatasi lebar input teks */
+
+.form-control {
+    width: 300px;
+}
+
+.container-sewa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    /* Menempatkan form di tengah secara vertikal */
+}
+
+.form {
+    width: 300px;
+    /* Lebar form */
+}
+
+
+/* tabel */
+
+
+/* style.css */
+
+
+/* Reset margin and padding for the whole page */
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Basic styling for the table */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+
+/* Style table header */
+
+thead {
+    background-color: #f8f9fa;
+    /* Warna latar header */
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+
+/* Alternating row colors for better readability */
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+    /* Warna latar baris genap */
+}
+
+
+/* Hover effect on rows */
+
+tbody tr:hover {
+    background-color: #e0e0e0;
+    /* Warna latar saat dihover */
+}

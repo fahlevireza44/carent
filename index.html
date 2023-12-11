@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CARENT</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">CARENT</a>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sewa.html">Sewa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="syarat.html">Syarat & Ketentuan</a>
+                    </li>
+                </ul>
+                <button class="btn btn-outline-success" id="loginButton" onclick="checkLogin()">Login</button>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Carousel -->
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="image1.jpg" class="d-block w-100" alt="Image 1">
+            </div>
+            <div class="carousel-item">
+                <img src="image2.jpg" class="d-block w-100" alt="Image 2">
+            </div>
+            <div class="carousel-item">
+                <img src="image3.jpg" class="d-block w-100" alt="Image 3">
+            </div>
+            <div class="carousel-item">
+                <img src="image4.jpg" class="d-block w-100" alt="Image 3">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Tentang Project ini -->
+    <div class="container mt-4">
+        <h2 class="text-center">About Us</h2>
+        <p>Kami adalah sebuah tim yang berkomitmen dalam memberikan pengalaman penyewaan mobil yang tak terlupakan kepada pelanggan kami. Dengan dedikasi yang tinggi, kami menawarkan layanan terbaik dan armada mobil yang berkualitas untuk memenuhi kebutuhan
+            perjalanan Anda. Kami percaya bahwa kepuasan pelanggan adalah yang utama, itulah mengapa kami selalu berusaha keras untuk memberikan pelayanan yang ramah, profesional, dan terpercaya. Dengan pengalaman bertahun-tahun di industri ini, kami
+            mengerti betul apa yang dibutuhkan untuk memberikan pengalaman perjalanan yang lancar dan menyenangkan. Armada mobil kami dirawat secara berkala untuk memastikan kenyamanan, keamanan, dan performa terbaik saat Anda menggunakan layanan penyewaan
+            kami. Dari mobil keluarga yang luas hingga kendaraan mewah, kami memiliki pilihan yang sesuai untuk setiap kebutuhan perjalanan. Kami bangga menjadi mitra setia dalam setiap perjalanan Anda. Dengan kami, Anda dapat mengandalkan layanan penyewaan
+            mobil yang handal, transparan, dan terjangkau. Terima kasih telah memilih kami sebagai mitra perjalanan Anda. Kami berkomitmen untuk terus memberikan layanan terbaik yang Anda pantas dapatkan.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>PT. Carent Indonesia</p>
+        <p>Jl. Surya Kencana No. 1 Pamulang, Tangerang Selatan, Banten</p>
+        <p>021 - 7770123</p>
+        <p>carentindonesia@gmail.inc</p>
+        <p>Copyright @2023 Universitas Pamulang</p>
+    </footer>
+
+    <!-- Bootstrap JavaScript and dependencies (optional) -->
+    <!-- Popper.js first, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        window.onload = function() {
+            var loginButton = document.getElementById('loginButton');
+
+            // Cek status login saat halaman dimuat
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                // Jika sudah login, ubah teks tombol menjadi "Logout"
+                loginButton.textContent = 'Logout';
+                loginButton.onclick = logoutUser;
+            } else {
+                // Jika belum login, arahkan ke halaman login.html saat tombol ditekan
+                loginButton.onclick = function() {
+                    window.location.href = 'login.html';
+                };
+            }
+        };
+
+        function logoutUser() {
+            localStorage.removeItem('isLoggedIn'); // Menghapus status login
+            localStorage.removeItem('dataLogIn'); // Menghapus data pengguna yang login
+            window.location.href = 'login.html';
+        }
+    </script>
+
+
+
+</body>
+
+</html>
